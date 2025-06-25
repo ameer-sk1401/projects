@@ -1,0 +1,6 @@
+---
+- name: "Updates the pacakges to latest versions"
+  hosts: webservers
+  become: true
+  roles:
+    - role: update_pkg

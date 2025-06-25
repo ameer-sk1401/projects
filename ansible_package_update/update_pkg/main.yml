@@ -1,0 +1,44 @@
+---
+- name: Update the pacakge version
+  ansible.builtin.apt:
+    update_cache: yes
+    upgrade: dist
+  when: ansible_os_family == "Debian"
+- name: Update the package version
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+  when: ansible_os_family == "RedHat"
+
+- name: check if any reboot is required
+  ansible.builtin.stats:
+    path: /var/run/reboot-required
+  register: reboot_required
+  when: ansible_os_family == "Debian"
+
+- name: Reboot the server if required
+  ansible.builtin.reboot:
+    msg: "Rebooting the server to complete package updates"
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 0
+    test_command: whoami
+  when: reboot_required.stat.exists and ansible_facts['os_family'] == "Debian"
+
+- name: Check if any reboot is required
+  ansible.builtin.shell: "needs-restarting -r; echo $?"
+  register: reboot_check
+  changed_when: false
+  failed_when: false
+  when: ansible_os_family == "RedHat"
+
+- name: Reboot the server if required
+  ansible.builtin.reboot:
+    msg: "Rebooting the server to complete package updates"
+    connect_timeout: 5
+    reboot_timeout: 300
+    pre_reboot_delay: 0
+    post_reboot_delay: 0
+    test_command: whoami
+  when: reboot_check.stdout!=0 and ansible_facts['os_family'] == "RedHat"
