@@ -1,0 +1,21 @@
+---
+- name: Ensure the target directory exists
+  ansible.builtin.file:
+    path: /var/log/myapp
+    state: directory
+    owner: root
+    group: adm
+    mode: '0755'
+
+- name: Copy the logging configuration file
+  ansible.builtin.copy:
+    src: ./files/myapp.logrotate
+    dest: /etc/logrotate.d/myapp
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Ensure logrotate is installed
+  ansible.builtin.package:
+    name: logrotate
+    state: present

@@ -1,0 +1,6 @@
+---
+- name: "Set up logging configuration"
+  hosts: logservers
+  become: true
+  roles:
+    - role: log_set_up
