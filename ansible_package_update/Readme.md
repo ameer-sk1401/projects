@@ -5,10 +5,10 @@
 .
 ├── inventory/
 │ └── hosts.ini
-├── patchupdate/
+├── update_pkg/
 │ ├── tasks/
 │ │ └── main.yml
-└── patchupdate.yml
+└── update_pkg.yml
 
 ## 🚩 Project Requirement
 
