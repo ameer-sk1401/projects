@@ -1,3 +1,0 @@
-service_name: apache2
-source_directory: files/
-destination_directory: /var/www/html/

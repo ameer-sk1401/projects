@@ -1,6 +1,0 @@
----
-- name: "Deploying a webserver"
-  hosts: webserver
-  become: true
-  roles:
-    - webserver
