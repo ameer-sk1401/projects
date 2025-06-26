@@ -1,0 +1,7 @@
+service_name: "Docker"
+package_list:
+- apt-transport-https
+- ca-certificates
+- curl
+- gnupg-agent
+- software-properties-common

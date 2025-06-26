@@ -1,0 +1,8 @@
+---
+- name: "Docker Installations and Configuration"
+  hosts: docker
+  become: true
+  vars_files:
+    - ./installation/vars/main.yml
+  roles:
+    - installation
