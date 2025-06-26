@@ -1,0 +1,8 @@
+---
+- name: "Install and Configure Database on server"
+  hosts: database_servers
+  become: true
+  vars_files:
+    - ./database/vars/main.yml
+  roles:
+    - role: database
